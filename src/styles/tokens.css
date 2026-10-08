@@ -1,47 +1,60 @@
-/* Design Tokens for Hack For Tomorrow (HFT) */
-/* Neutral baseline theme — easily customizable when final official colors arrive */
+/* ============================================================
+   HACK FOR TOMORROW — Official Design Tokens
+   Extracted from official event poster: dark cinematic,
+   space-inspired, deep burgundy + vibrant magenta palette.
+   ============================================================ */
 
 :root {
-  /* Color Tokens - Backgrounds */
-  --color-bg-base: #08090d;
-  --color-bg-subtle: #0d0f15;
-  --color-bg-surface: #12151e;
-  --color-bg-surface-hover: #181c28;
-  --color-bg-elevated: #1e2230;
+  /* ── Backgrounds ─────────────────────────────────────────── */
+  --color-bg-primary:      #070206;   /* Deepest void canvas */
+  --color-bg-secondary:    #12040E;   /* Section alternates */
+  --color-surface:         #1A0614;   /* Card / container base */
+  --color-surface-elevated:#260A1C;   /* Pills, modals, active */
+  --color-surface-hover:   #330D26;   /* Card hover surface */
 
-  /* Color Tokens - Text */
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
-  --color-text-dim: #475569;
+  /* ── Borders ──────────────────────────────────────────────── */
+  --color-border-subtle:   rgba(93, 27, 64, 0.45);   /* Resting borders */
+  --color-border-medium:   rgba(120, 35, 80, 0.65);  /* Active / mid */
+  --color-border-strong:   rgba(180, 40, 100, 0.80); /* Highlight */
+  --color-border-accent:   rgba(214, 26, 112, 0.40); /* Magenta border */
 
-  /* Color Tokens - Accents (Neutral Technical Baseline) */
-  --color-accent-primary: #38bdf8;        /* Subtle cyan-blue technical accent */
-  --color-accent-primary-hover: #0ea5e9;
-  --color-accent-secondary: #818cf8;      /* Slate indigo accent */
-  --color-accent-muted: rgba(56, 189, 248, 0.12);
-  --color-accent-border: rgba(56, 189, 248, 0.28);
-  --color-accent-glow: rgba(56, 189, 248, 0.08);
+  /* ── Accent / Brand ──────────────────────────────────────── */
+  --color-accent-primary:  #D61A70;   /* Flagship vibrant magenta */
+  --color-accent-bright:   #F42E88;   /* High-energy CTA hover */
+  --color-accent-crimson:  #961042;   /* Deep crimson atmospheric */
+  --color-accent-muted:    rgba(214, 26, 112, 0.12); /* Subtle fills */
+  --color-accent-glow:     rgba(214, 26, 112, 0.22); /* Glow shadow */
 
-  /* Status Colors */
-  --color-status-open: #10b981;
-  --color-status-closed: #f43f5e;
-  --color-status-review: #f59e0b;
+  /* ── Text ─────────────────────────────────────────────────── */
+  --color-text-primary:    #FAEEF4;   /* Soft pink-white — max legibility */
+  --color-text-secondary:  #C4A5B5;   /* Muted rose-gray — body copy */
+  --color-text-muted:      #7A5068;   /* Timestamps, inactive labels */
+  --color-text-dim:        #4A2E3E;   /* Decorative placeholders */
 
-  /* Borders & Dividers */
-  --color-border-subtle: rgba(255, 255, 255, 0.07);
-  --color-border-medium: rgba(255, 255, 255, 0.12);
-  --color-border-strong: rgba(255, 255, 255, 0.22);
-  --color-border-accent: rgba(56, 189, 248, 0.24);
+  /* ── Status / Semantic ────────────────────────────────────── */
+  --color-status-open:     #10b981;   /* Emerald — registrations open */
+  --color-status-closed:   #f43f5e;   /* Rose — registrations closed */
+  --color-status-pending:  #f59e0b;   /* Amber — coming soon */
 
-  /* Typography */
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* ── Focus Ring ───────────────────────────────────────────── */
+  --color-focus:           #F42E88;   /* Visible keyboard focus */
 
-  /* Layout & Radii */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-display:  'Syne', 'Space Grotesk', system-ui, sans-serif;
+  --font-sans:     'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:     'JetBrains Mono', 'Fira Code', monospace;
+  /* Keep --font-heading as alias for backward compat with existing components */
+  --font-heading:  var(--font-display);
+
+  /* ── Radii ────────────────────────────────────────────────── */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  20px;
+  --radius-2xl: 28px;
+
+  /* ── Shadows ──────────────────────────────────────────────── */
+  --shadow-card:  0 4px 24px rgba(7, 2, 6, 0.60);
+  --shadow-glow:  0 0 32px rgba(214, 26, 112, 0.18);
+  --shadow-glow-sm: 0 0 16px rgba(214, 26, 112, 0.12);
 }

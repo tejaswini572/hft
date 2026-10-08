@@ -5,44 +5,44 @@ export const StatusBadge = ({ status, className = '' }) => {
   const statusMap = {
     [EVENT_STATUS_ENUM.REGISTRATIONS_OPEN]: {
       label: 'Registrations Open',
-      dotColor: 'bg-emerald-400',
-      textColor: 'text-emerald-300',
-      bgColor: 'bg-emerald-950/40 border-emerald-800/50',
+      dotHex: '#F42E88',
+      textColor: '#FAEEF4',
+      bgStyle: { backgroundColor: 'rgba(214, 26, 112, 0.15)', borderColor: 'rgba(214, 26, 112, 0.45)' },
       ping: true,
     },
     [EVENT_STATUS_ENUM.COMING_SOON]: {
       label: 'Coming Soon',
-      dotColor: 'bg-amber-400',
-      textColor: 'text-amber-300',
-      bgColor: 'bg-amber-950/40 border-amber-800/50',
+      dotHex: '#F59E0B',
+      textColor: '#FCD34D',
+      bgStyle: { backgroundColor: 'rgba(245, 158, 11, 0.15)', borderColor: 'rgba(245, 158, 11, 0.35)' },
       ping: false,
     },
     [EVENT_STATUS_ENUM.REGISTRATIONS_CLOSED]: {
       label: 'Registrations Closed',
-      dotColor: 'bg-rose-400',
-      textColor: 'text-rose-300',
-      bgColor: 'bg-rose-950/40 border-rose-800/50',
+      dotHex: '#F43F5E',
+      textColor: '#FECDD3',
+      bgStyle: { backgroundColor: 'rgba(244, 63, 94, 0.15)', borderColor: 'rgba(244, 63, 94, 0.35)' },
       ping: false,
     },
     [EVENT_STATUS_ENUM.SHORTLISTING]: {
       label: 'Shortlisting in Progress',
-      dotColor: 'bg-sky-400',
-      textColor: 'text-sky-300',
-      bgColor: 'bg-sky-950/40 border-sky-800/50',
+      dotHex: '#D61A70',
+      textColor: '#FAEEF4',
+      bgStyle: { backgroundColor: 'rgba(150, 16, 66, 0.2)', borderColor: 'rgba(214, 26, 112, 0.45)' },
       ping: true,
     },
     [EVENT_STATUS_ENUM.LIVE]: {
       label: 'Hackathon Live Now',
-      dotColor: 'bg-emerald-400',
-      textColor: 'text-emerald-300',
-      bgColor: 'bg-emerald-950/40 border-emerald-800/50',
+      dotHex: '#10B981',
+      textColor: '#6EE7B7',
+      bgStyle: { backgroundColor: 'rgba(16, 185, 129, 0.15)', borderColor: 'rgba(16, 185, 129, 0.35)' },
       ping: true,
     },
     [EVENT_STATUS_ENUM.COMPLETED]: {
       label: 'Event Completed',
-      dotColor: 'bg-neutral-400',
-      textColor: 'text-neutral-300',
-      bgColor: 'bg-neutral-900 border-neutral-800',
+      dotHex: '#9CA3AF',
+      textColor: '#D1D5DB',
+      bgStyle: { backgroundColor: 'rgba(75, 85, 99, 0.15)', borderColor: 'rgba(75, 85, 99, 0.35)' },
       ping: false,
     },
   };
@@ -50,14 +50,27 @@ export const StatusBadge = ({ status, className = '' }) => {
   const current = statusMap[status] || statusMap[EVENT_STATUS_ENUM.COMING_SOON];
 
   return (
-    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium border ${current.bgColor} ${current.textColor} ${className}`}>
+    <div
+      className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium border backdrop-blur-md ${className}`}
+      style={{
+        ...current.bgStyle,
+        color: current.textColor,
+      }}
+    >
       <span className="relative flex h-2 w-2">
         {current.ping && (
-          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${current.dotColor} opacity-75`} />
+          <span
+            className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+            style={{ backgroundColor: current.dotHex }}
+          />
         )}
-        <span className={`relative inline-flex rounded-full h-2 w-2 ${current.dotColor}`} />
+        <span
+          className="relative inline-flex rounded-full h-2 w-2"
+          style={{ backgroundColor: current.dotHex }}
+        />
       </span>
       <span>{current.label}</span>
     </div>
   );
 };
+

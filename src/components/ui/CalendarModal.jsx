@@ -50,30 +50,45 @@ export const CalendarModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl p-6 shadow-2xl"
+        className="relative w-full max-w-md border rounded-2xl p-6 shadow-2xl"
+        style={{
+          backgroundColor: '#1A0614',
+          borderColor: 'rgba(214, 26, 112, 0.45)',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(214, 26, 112, 0.2)',
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 transition-colors"
+          className="absolute top-4 right-4 p-2 transition-colors rounded-lg"
+          style={{ color: '#C4A5B5' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#FAEEF4'; e.currentTarget.style.backgroundColor = 'rgba(214, 26, 112, 0.15)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#C4A5B5'; e.currentTarget.style.backgroundColor = 'transparent'; }}
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
+          <div
+            className="w-10 h-10 rounded-xl border flex items-center justify-center"
+            style={{
+              backgroundColor: 'rgba(214, 26, 112, 0.15)',
+              borderColor: 'rgba(214, 26, 112, 0.4)',
+              color: '#F42E88',
+            }}
+          >
             <Calendar className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">Add to Calendar</h3>
-            <p className="text-xs text-neutral-400">{eventConfig.dates.display}</p>
+            <h3 className="text-lg font-bold font-display" style={{ color: '#FAEEF4' }}>Add to Calendar</h3>
+            <p className="text-xs font-mono" style={{ color: '#C4A5B5' }}>{eventConfig.dates.display}</p>
           </div>
         </div>
 
-        <p className="text-sm text-neutral-300 mb-6 leading-relaxed">
+        <p className="text-sm mb-6 leading-relaxed" style={{ color: '#C4A5B5' }}>
           Save the 24-hour hackathon dates to your calendar so you never miss team check-in, kickoff, or mentorship rounds.
         </p>
 
@@ -82,33 +97,59 @@ export const CalendarModal = ({ isOpen, onClose }) => {
             href={googleCalendarUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-neutral-800/80 border border-neutral-700/80 hover:bg-neutral-800 hover:border-neutral-600 text-white font-medium text-sm transition-colors"
+            className="flex items-center justify-between w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all"
+            style={{
+              backgroundColor: '#260A1C',
+              borderColor: 'rgba(93, 27, 64, 0.6)',
+              color: '#FAEEF4',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(214, 26, 112, 0.6)';
+              e.currentTarget.style.backgroundColor = 'rgba(214, 26, 112, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(93, 27, 64, 0.6)';
+              e.currentTarget.style.backgroundColor = '#260A1C';
+            }}
           >
             <span className="flex items-center gap-2">
-              <ExternalLink className="w-4 h-4 text-sky-400" />
+              <ExternalLink className="w-4 h-4" style={{ color: '#F42E88' }} />
               Google Calendar
             </span>
-            <span className="text-xs text-neutral-400">Open in Web →</span>
+            <span className="text-xs" style={{ color: '#C4A5B5' }}>Open in Web →</span>
           </a>
 
           <button
             type="button"
             onClick={handleDownloadICS}
-            className="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-neutral-800/80 border border-neutral-700/80 hover:bg-neutral-800 hover:border-neutral-600 text-white font-medium text-sm transition-colors cursor-pointer"
+            className="flex items-center justify-between w-full px-4 py-3 rounded-xl border text-sm font-medium transition-all cursor-pointer"
+            style={{
+              backgroundColor: '#260A1C',
+              borderColor: 'rgba(93, 27, 64, 0.6)',
+              color: '#FAEEF4',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(214, 26, 112, 0.6)';
+              e.currentTarget.style.backgroundColor = 'rgba(214, 26, 112, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(93, 27, 64, 0.6)';
+              e.currentTarget.style.backgroundColor = '#260A1C';
+            }}
           >
             <span className="flex items-center gap-2">
               {downloaded ? (
-                <Check className="w-4 h-4 text-emerald-400" />
+                <Check className="w-4 h-4" style={{ color: '#10B981' }} />
               ) : (
-                <Download className="w-4 h-4 text-sky-400" />
+                <Download className="w-4 h-4" style={{ color: '#F42E88' }} />
               )}
               {downloaded ? 'Downloaded .ICS File!' : 'Download .iCal / Outlook File'}
             </span>
-            <span className="text-xs text-neutral-400">Apple / Outlook</span>
+            <span className="text-xs" style={{ color: '#C4A5B5' }}>Apple / Outlook</span>
           </button>
         </div>
 
-        <div className="mt-6 pt-4 border-t border-neutral-800 flex justify-end">
+        <div className="mt-6 pt-4 border-t flex justify-end" style={{ borderColor: 'rgba(93, 27, 64, 0.5)' }}>
           <Button variant="ghost" size="sm" onClick={onClose}>
             Done
           </Button>
@@ -117,3 +158,4 @@ export const CalendarModal = ({ isOpen, onClose }) => {
     </div>
   );
 };
+

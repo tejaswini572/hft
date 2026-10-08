@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, MapPin, ArrowUpRight, ArrowDown, ChevronRight, ShieldCheck, Utensils, Award, Sparkles } from 'lucide-react';
+import { Calendar, MapPin, ArrowUpRight, ArrowDown, ShieldCheck, Utensils, Award, Sparkles } from 'lucide-react';
 import { eventConfig, EVENT_STATUS_ENUM } from '../../data/eventConfig';
 import { Container } from '../layout/Container';
 import { Button } from '../ui/Button';
@@ -13,115 +13,170 @@ export const Hero = () => {
   const getPrimaryCta = () => {
     switch (eventConfig.currentStatus) {
       case EVENT_STATUS_ENUM.REGISTRATIONS_OPEN:
-        return {
-          text: 'Register on Devfolio',
-          href: eventConfig.links.registrationUrl,
-          disabled: false,
-          target: '_blank'
-        };
+        return { text: 'Register on Devfolio', href: eventConfig.links.registrationUrl, disabled: false, target: '_blank' };
       case EVENT_STATUS_ENUM.REGISTRATIONS_CLOSED:
-        return {
-          text: 'Registrations Closed',
-          href: eventConfig.links.registrationUrl,
-          disabled: true,
-          target: '_blank'
-        };
+        return { text: 'Registrations Closed', href: eventConfig.links.registrationUrl, disabled: true, target: '_blank' };
       case EVENT_STATUS_ENUM.SHORTLISTING:
-        return {
-          text: 'View Shortlist Status',
-          href: '#announcements',
-          disabled: false,
-          target: '_self'
-        };
+        return { text: 'View Shortlist Status', href: '#announcements', disabled: false, target: '_self' };
       case EVENT_STATUS_ENUM.LIVE:
-        return {
-          text: 'Live Project Portal',
-          href: eventConfig.links.devfolioUrl,
-          disabled: false,
-          target: '_blank'
-        };
+        return { text: 'Live Project Portal', href: eventConfig.links.devfolioUrl, disabled: false, target: '_blank' };
       case EVENT_STATUS_ENUM.COMPLETED:
-        return {
-          text: 'Explore Winning Projects',
-          href: '#prizes',
-          disabled: false,
-          target: '_self'
-        };
+        return { text: 'Explore Winning Projects', href: '#prizes', disabled: false, target: '_self' };
       default:
-        return {
-          text: 'Coming Soon',
-          href: '#about',
-          disabled: false,
-          target: '_self'
-        };
+        return { text: 'Coming Soon', href: '#about', disabled: false, target: '_self' };
     }
   };
 
   const primaryCta = getPrimaryCta();
 
   return (
-    <section id="home" className="relative min-h-[90vh] pt-32 pb-20 md:pt-40 md:pb-28 flex items-center tech-grid-pattern overflow-hidden">
-      {/* Subtle radial ambient background */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sky-500/5 rounded-full blur-3xl pointer-events-none" />
+    <section
+      id="home"
+      className="relative min-h-screen pt-32 pb-20 md:pt-44 md:pb-32 flex items-center overflow-hidden"
+      style={{ background: 'var(--color-bg-primary)' }}
+    >
+      {/* ── Atmospheric Background Layers ─────────────────── */}
+      {/* Deep crimson radial glow — focal point behind content */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 80% 65% at 50% 45%, rgba(150,16,66,0.28) 0%, rgba(90,8,40,0.15) 40%, transparent 75%)',
+        }}
+      />
+      {/* Subtle dot matrix — technical atmosphere */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none hft-dot-pattern opacity-60"
+      />
+      {/* Left edge crimson bloom */}
+      <div
+        aria-hidden="true"
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(100,8,45,0.22) 0%, transparent 70%)', filter: 'blur(60px)' }}
+      />
+      {/* Right edge bloom */}
+      <div
+        aria-hidden="true"
+        className="absolute right-0 top-1/3 w-72 h-72 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(80,5,35,0.18) 0%, transparent 70%)', filter: 'blur(50px)' }}
+      />
+      {/* Bottom fade to next section */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, transparent, var(--color-bg-primary))' }}
+      />
 
       <Container className="relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Editorial Content (7 cols) */}
-          <div className="lg:col-span-7 space-y-6">
-            
-            {/* Institution / Fest Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs font-mono text-neutral-300">
-              <span className="w-2 h-2 rounded-full bg-sky-400" />
-              <span className="font-semibold text-white">{eventConfig.festivalName}</span>
-              <span className="text-neutral-600">•</span>
-              <span>{eventConfig.shortInstitution}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-8 items-center">
+
+          {/* ── Left: Main Content (7 cols) ─────────────── */}
+          <div className="lg:col-span-7 space-y-7">
+
+            {/* Festival Badge */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border"
+              style={{
+                background: 'rgba(26, 6, 20, 0.90)',
+                borderColor: 'rgba(214, 26, 112, 0.28)',
+              }}
+            >
+              <span
+                className="w-2 h-2 rounded-full animate-pulse"
+                style={{ background: '#D61A70', boxShadow: '0 0 6px rgba(214,26,112,0.8)' }}
+              />
+              <span className="font-mono text-xs font-semibold" style={{ color: '#C4A5B5' }}>
+                {eventConfig.festivalName}
+              </span>
+              <span style={{ color: '#4A2E3E' }}>·</span>
+              <span className="font-mono text-xs" style={{ color: '#7A5068' }}>
+                {eventConfig.shortInstitution}
+              </span>
             </div>
 
-            {/* Dominant Headline */}
-            <div className="space-y-2">
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.05]">
-                HACK FOR <br />
-                <span className="text-neutral-300">
+            {/* ── Main Headline ─────────────────────────── */}
+            <div className="space-y-1">
+              <h1
+                className="leading-[0.95] tracking-tight"
+                style={{ fontFamily: 'var(--font-display)', fontWeight: 800 }}
+              >
+                {/* "HACK FOR" in primary text */}
+                <span
+                  className="block"
+                  style={{
+                    fontSize: 'clamp(3rem, 8vw, 6rem)',
+                    color: '#FAEEF4',
+                    textShadow: '0 0 60px rgba(214,26,112,0.12)',
+                  }}
+                >
+                  HACK FOR
+                </span>
+                {/* "TOMORROW" in magenta — poster-faithful */}
+                <span
+                  className="block"
+                  style={{
+                    fontSize: 'clamp(3rem, 8vw, 6rem)',
+                    color: '#D61A70',
+                    textShadow: '0 0 80px rgba(214,26,112,0.35)',
+                  }}
+                >
                   TOMORROW
                 </span>
               </h1>
+
+              {/* Tagline */}
+              <p
+                className="text-lg sm:text-xl mt-4 max-w-lg leading-relaxed"
+                style={{ color: '#C4A5B5' }}
+              >
+                Innovate Today,&nbsp;
+                <span style={{ color: '#FAEEF4', fontWeight: 600 }}>Impact Tomorrow.</span>
+                &nbsp;24 hours to shape the future.
+              </p>
             </div>
 
-            {/* Tagline */}
-            <p className="text-lg sm:text-xl text-neutral-300 max-w-xl leading-relaxed">
-              Where <span className="text-white font-semibold underline decoration-sky-500/60 underline-offset-4">time</span> bends to innovation. <br className="hidden sm:inline" />
-              <span className="text-neutral-200 font-semibold">24 hours</span> to shape the future of technology.
-            </p>
-
-            {/* Metadata Badges */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-neutral-900/90 border border-neutral-800 text-sm text-neutral-200">
-                <Calendar className="w-4 h-4 text-sky-400" />
-                <span className="font-medium">{eventConfig.dates.display}</span>
+            {/* ── Metadata Pills ────────────────────────── */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <div
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm"
+                style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border-subtle)',
+                  color: 'var(--color-text-secondary)',
+                }}
+              >
+                <Calendar className="w-4 h-4" style={{ color: '#D61A70' }} />
+                <span className="font-medium" style={{ color: '#FAEEF4' }}>
+                  {eventConfig.dates.display}
+                </span>
               </div>
 
               <a
                 href={eventConfig.venue.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-neutral-900/90 border border-neutral-800 text-sm text-neutral-200 hover:border-neutral-700 hover:text-sky-300 transition-colors group"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm group transition-all duration-200"
+                style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border-subtle)',
+                  color: 'var(--color-text-secondary)',
+                }}
               >
-                <MapPin className="w-4 h-4 text-sky-400 group-hover:scale-110 transition-transform" />
+                <MapPin className="w-4 h-4 group-hover:scale-110 transition-transform" style={{ color: '#D61A70' }} />
                 <span>MEC Thrikkakara, Kochi</span>
-                <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 transition-opacity" />
               </a>
             </div>
 
-            {/* Primary & Secondary Call to Actions */}
-            <div className="flex flex-wrap items-center gap-4 pt-4">
+            {/* ── CTA Row ───────────────────────────────── */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <Button
                 href={primaryCta.href}
                 target={primaryCta.target}
                 size="lg"
                 variant="primary"
                 disabled={primaryCta.disabled}
-                icon={<ArrowUpRight className="w-4 h-4" />}
+                icon={<ArrowUpRight className="w-5 h-5" />}
               >
                 {primaryCta.text}
               </Button>
@@ -129,54 +184,83 @@ export const Hero = () => {
               <Button
                 href="#about"
                 size="lg"
-                variant="secondary"
+                variant="outline"
                 icon={<ArrowDown className="w-4 h-4" />}
               >
                 Explore Event
               </Button>
 
-              <Button
-                size="lg"
-                variant="outline"
+              <button
                 onClick={() => setIsCalendarModalOpen(true)}
-                icon={<Calendar className="w-4 h-4 text-sky-400" />}
+                className="inline-flex items-center gap-2 text-sm font-medium transition-colors duration-150"
+                style={{ color: '#7A5068' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#C4A5B5'}
+                onMouseLeave={e => e.currentTarget.style.color = '#7A5068'}
+                aria-label="Add to Calendar"
               >
-                Add to Calendar
-              </Button>
+                <Calendar className="w-4 h-4" />
+                <span>Add to Calendar</span>
+              </button>
             </div>
 
-            {/* Quick trust metrics indicator */}
-            <div className="pt-3 flex items-center gap-4 text-xs font-mono text-neutral-400">
+            {/* ── Trust Micro-Copy ──────────────────────── */}
+            <div
+              className="flex flex-wrap items-center gap-5 text-xs font-mono pt-1"
+              style={{ color: '#7A5068' }}
+            >
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                100% Free Registration
+                <ShieldCheck className="w-3.5 h-3.5" style={{ color: '#10b981' }} />
+                100% Free Entry
               </span>
-              <span>•</span>
+              <span style={{ color: '#4A2E3E' }}>·</span>
               <span className="flex items-center gap-1.5">
-                <Utensils className="w-4 h-4 text-amber-400" />
-                Meals & Caffeine Included
+                <Utensils className="w-3.5 h-3.5" style={{ color: '#D61A70' }} />
+                Meals Included
+              </span>
+              <span style={{ color: '#4A2E3E' }}>·</span>
+              <span className="flex items-center gap-1.5">
+                <Award className="w-3.5 h-3.5" style={{ color: '#D61A70' }} />
+                ₹30K+ Prize Pool
               </span>
             </div>
           </div>
 
-          {/* Right Column: Event Overview Terminal Card (5 cols) */}
+          {/* ── Right: Event Status Card (5 cols) ─────── */}
           <div className="lg:col-span-5">
-            <div className="rounded-2xl bg-neutral-900/90 border border-neutral-800 p-6 md:p-8 shadow-2xl relative overflow-hidden">
-              
+            <div
+              className="rounded-2xl p-6 md:p-8 relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, #1A0614 0%, #12040E 100%)',
+                border: '1px solid rgba(93,27,64,0.55)',
+                boxShadow: '0 4px 40px rgba(7,2,6,0.70), inset 0 1px 0 rgba(214,26,112,0.08)',
+              }}
+            >
+              {/* Top accent line */}
+              <div
+                className="absolute top-0 left-8 right-8 h-[1px]"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(214,26,112,0.50), transparent)' }}
+              />
+
               {/* Card Header */}
-              <div className="flex items-center justify-between pb-6 mb-6 border-b border-neutral-800/80">
+              <div
+                className="flex items-center justify-between pb-6 mb-6"
+                style={{ borderBottom: '1px solid rgba(93,27,64,0.40)' }}
+              >
                 <div>
-                  <h3 className="text-base font-bold text-white font-heading">
-                    Event Status & Countdown
+                  <h3
+                    className="text-base font-bold"
+                    style={{ fontFamily: 'var(--font-display)', color: '#FAEEF4' }}
+                  >
+                    Event Countdown
                   </h3>
-                  <p className="text-xs text-neutral-400 font-mono mt-0.5">
+                  <p className="text-xs font-mono mt-0.5" style={{ color: '#7A5068' }}>
                     Official 24-Hour Timer
                   </p>
                 </div>
                 <StatusBadge status={eventConfig.currentStatus} />
               </div>
 
-              {/* Countdown Component */}
+              {/* Countdown */}
               <div className="py-2 flex justify-center mb-6">
                 <Countdown
                   targetDate={eventConfig.dates.countdownTarget}
@@ -184,35 +268,44 @@ export const Hero = () => {
                 />
               </div>
 
-              {/* Quick Perks Grid */}
-              <div className="space-y-2.5 pt-4 border-t border-neutral-800/80">
-                <p className="text-[11px] font-mono font-semibold text-neutral-400 uppercase tracking-wider">
+              {/* Inclusions Grid */}
+              <div
+                className="space-y-3 pt-5"
+                style={{ borderTop: '1px solid rgba(93,27,64,0.40)' }}
+              >
+                <p className="text-[11px] font-mono font-semibold uppercase tracking-widest" style={{ color: '#7A5068' }}>
                   Event Inclusions
                 </p>
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800/60 flex items-center gap-2 text-xs text-neutral-300">
-                    <Utensils className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                    <span>Free Full Meals</span>
-                  </div>
-                  <div className="p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800/60 flex items-center gap-2 text-xs text-neutral-300">
-                    <Sparkles className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                    <span>Coffee & Snacks</span>
-                  </div>
-                  <div className="p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800/60 flex items-center gap-2 text-xs text-neutral-300">
-                    <Award className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                    <span>MEC Certificates</span>
-                  </div>
-                  <div className="p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800/60 flex items-center gap-2 text-xs text-neutral-300">
-                    <ShieldCheck className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                    <span>₹30K+ Prize Pool</span>
-                  </div>
+                  {[
+                    { icon: <Utensils className="w-3.5 h-3.5 shrink-0" />, label: 'Full Meals' },
+                    { icon: <Sparkles className="w-3.5 h-3.5 shrink-0" />, label: 'Coffee & Snacks' },
+                    { icon: <Award className="w-3.5 h-3.5 shrink-0" />, label: 'MEC Certificate' },
+                    { icon: <ShieldCheck className="w-3.5 h-3.5 shrink-0" />, label: '₹30K+ Prizes' },
+                  ].map(({ icon, label }) => (
+                    <div
+                      key={label}
+                      className="p-2.5 rounded-lg flex items-center gap-2 text-xs"
+                      style={{
+                        background: 'rgba(7,2,6,0.50)',
+                        border: '1px solid rgba(93,27,64,0.30)',
+                        color: '#C4A5B5',
+                      }}
+                    >
+                      <span style={{ color: '#D61A70' }}>{icon}</span>
+                      <span>{label}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Secondary devfolio helper */}
-              <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs">
-                <span className="text-neutral-400 font-mono">Platform Partner:</span>
-                <span className="font-semibold text-white">Devfolio</span>
+              {/* Footer */}
+              <div
+                className="mt-5 pt-4 flex items-center justify-between text-xs"
+                style={{ borderTop: '1px solid rgba(93,27,64,0.40)' }}
+              >
+                <span className="font-mono" style={{ color: '#7A5068' }}>Platform Partner:</span>
+                <span className="font-bold" style={{ color: '#FAEEF4' }}>Devfolio</span>
               </div>
             </div>
           </div>
@@ -220,7 +313,6 @@ export const Hero = () => {
         </div>
       </Container>
 
-      {/* Calendar Modal Component */}
       <CalendarModal
         isOpen={isCalendarModalOpen}
         onClose={() => setIsCalendarModalOpen(false)}

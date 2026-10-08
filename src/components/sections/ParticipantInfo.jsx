@@ -20,7 +20,13 @@ export const ParticipantInfo = () => {
   };
 
   return (
-    <section id="participant-info" className="py-20 md:py-32 bg-[#08090d] border-t border-neutral-800/80 relative overflow-hidden">
+    <section id="participant-info" className="py-20 md:py-32 relative overflow-hidden" style={{ backgroundColor: '#070206' }}>
+      {/* Background radial glow */}
+      <div
+        className="absolute bottom-0 left-1/4 w-[500px] h-[350px] rounded-full pointer-events-none blur-[120px]"
+        style={{ background: 'radial-gradient(circle, rgba(150, 16, 66, 0.12) 0%, rgba(7, 2, 6, 0) 70%)' }}
+      />
+
       <Container>
         <SectionHeader
           badge="Participant Guide"
@@ -29,24 +35,31 @@ export const ParticipantInfo = () => {
         />
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-2 p-1.5 rounded-xl bg-neutral-900 border border-neutral-800 w-fit mb-8 overflow-x-auto max-w-full">
+        <div
+          className="flex items-center gap-2 p-1.5 rounded-xl border w-fit mb-8 overflow-x-auto max-w-full backdrop-blur-md"
+          style={{ backgroundColor: '#1A0614', borderColor: 'rgba(93, 27, 64, 0.5)' }}
+        >
           {[
             { id: 'guidelines', label: 'Core Guidelines & Team Rules' },
             { id: 'checklist', label: 'Hardware & Gear Checklist' },
             { id: 'criteria', label: 'Evaluation & Judging Metrics' }
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                activeTab === tab.id
-                  ? 'bg-neutral-800 text-white shadow-sm'
-                  : 'text-neutral-400 hover:text-neutral-200'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+          ].map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap transition-all cursor-pointer font-display"
+                style={{
+                  backgroundColor: isActive ? '#D61A70' : 'transparent',
+                  color: isActive ? '#FFFFFF' : '#C4A5B5',
+                  boxShadow: isActive ? '0 2px 12px rgba(214, 26, 112, 0.4)' : 'none',
+                }}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Tab 1: Guidelines Grid */}
@@ -55,21 +68,41 @@ export const ParticipantInfo = () => {
             {participantInfoData.guidelines.map((guide) => (
               <div
                 key={guide.id}
-                className="p-6 sm:p-8 rounded-2xl bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 transition-colors"
+                className="p-6 sm:p-8 rounded-2xl border transition-all duration-300"
+                style={{
+                  backgroundColor: '#1A0614',
+                  borderColor: 'rgba(93, 27, 64, 0.45)',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(214, 26, 112, 0.4)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(93, 27, 64, 0.45)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-bold text-white font-heading">
+                  <h3 className="text-lg font-bold font-display" style={{ color: '#FAEEF4' }}>
                     {guide.title}
                   </h3>
-                  <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-sky-950/50 border border-sky-800/40 text-sky-400 font-semibold">
+                  <span
+                    className="text-xs font-mono px-2.5 py-1 rounded-md border font-semibold"
+                    style={{
+                      backgroundColor: 'rgba(214, 26, 112, 0.15)',
+                      borderColor: 'rgba(214, 26, 112, 0.35)',
+                      color: '#F42E88',
+                    }}
+                  >
                     {guide.badge}
                   </span>
                 </div>
 
                 <ul className="space-y-2.5">
                   {guide.points.map((point, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-sm text-neutral-300 leading-relaxed">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <li key={idx} className="flex items-start gap-2.5 text-sm leading-relaxed" style={{ color: '#C4A5B5' }}>
+                      <Check className="w-4 h-4 shrink-0 mt-0.5" style={{ color: '#F42E88' }} />
                       <span>{point}</span>
                     </li>
                   ))}
@@ -81,35 +114,46 @@ export const ParticipantInfo = () => {
 
         {/* Tab 2: Checklist */}
         {activeTab === 'checklist' && (
-          <div className="p-6 sm:p-8 rounded-2xl bg-neutral-900/60 border border-neutral-800 mb-10">
-            <h3 className="text-lg font-bold text-white font-heading mb-4 flex items-center gap-2">
-              <Laptop className="w-5 h-5 text-sky-400" />
+          <div
+            className="p-6 sm:p-8 rounded-2xl border mb-10"
+            style={{
+              backgroundColor: '#1A0614',
+              borderColor: 'rgba(93, 27, 64, 0.45)',
+            }}
+          >
+            <h3 className="text-lg font-bold font-display mb-4 flex items-center gap-2" style={{ color: '#FAEEF4' }}>
+              <Laptop className="w-5 h-5" style={{ color: '#F42E88' }} />
               What to Pack & Bring Along
             </h3>
-            <p className="text-sm text-neutral-400 mb-6">
+            <p className="text-sm mb-6" style={{ color: '#C4A5B5' }}>
               Review this quick checklist to ensure a seamless check-in and productive 24 hours on campus.
             </p>
 
-            <div className="divide-y divide-neutral-800/80">
+            <div className="divide-y" style={{ borderColor: 'rgba(93, 27, 64, 0.35)' }}>
               {participantInfoData.checklist.map((item, idx) => (
                 <div key={idx} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-3">
-                    <span className="w-5 h-5 rounded-full bg-neutral-800 flex items-center justify-center text-[10px] font-mono font-bold text-neutral-400">
+                    <span
+                      className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold"
+                      style={{ backgroundColor: '#260A1C', color: '#D61A70' }}
+                    >
                       {idx + 1}
                     </span>
-                    <span className="text-sm font-semibold text-white">
+                    <span className="text-sm font-semibold" style={{ color: '#FAEEF4' }}>
                       {item.item}
                     </span>
                   </div>
                   <div className="flex items-center gap-3 sm:pl-8">
-                    <span className="text-xs text-neutral-400 font-normal">
+                    <span className="text-xs font-normal" style={{ color: '#C4A5B5' }}>
                       {item.note}
                     </span>
-                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase font-bold shrink-0 ${
-                      item.required 
-                        ? 'bg-rose-950/50 text-rose-300 border border-rose-800/50' 
-                        : 'bg-neutral-800 text-neutral-400'
-                    }`}>
+                    <span
+                      className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase font-bold shrink-0 border ${
+                        item.required 
+                          ? 'bg-[rgba(214,26,112,0.15)] text-[#F42E88] border-[rgba(214,26,112,0.4)]' 
+                          : 'bg-[#260A1C] text-[#C4A5B5] border-transparent'
+                      }`}
+                    >
                       {item.required ? 'Mandatory' : 'Optional'}
                     </span>
                   </div>
@@ -125,23 +169,35 @@ export const ParticipantInfo = () => {
             {participantInfoData.evaluationCriteria.map((crit) => (
               <div
                 key={crit.name}
-                className="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 flex flex-col justify-between"
+                className="p-6 rounded-2xl border flex flex-col justify-between transition-all duration-300"
+                style={{
+                  backgroundColor: '#1A0614',
+                  borderColor: 'rgba(93, 27, 64, 0.45)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(214, 26, 112, 0.4)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(93, 27, 64, 0.45)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-2xl font-black font-mono text-sky-400">
+                    <span className="text-2xl font-black font-mono" style={{ color: '#F42E88' }}>
                       {crit.weight}
                     </span>
-                    <Scale className="w-4 h-4 text-neutral-500" />
+                    <Scale className="w-4 h-4" style={{ color: '#7A5068' }} />
                   </div>
-                  <h4 className="text-base font-bold text-white font-heading mb-2">
+                  <h4 className="text-base font-bold font-display mb-2" style={{ color: '#FAEEF4' }}>
                     {crit.name}
                   </h4>
-                  <p className="text-xs text-neutral-400 leading-relaxed">
+                  <p className="text-xs leading-relaxed" style={{ color: '#C4A5B5' }}>
                     {crit.desc}
                   </p>
                 </div>
-                <div className="pt-4 mt-4 border-t border-neutral-800/60 text-[10px] font-mono text-neutral-500">
+                <div className="pt-4 mt-4 border-t text-[10px] font-mono" style={{ borderColor: 'rgba(93, 27, 64, 0.4)', color: '#7A5068' }}>
                   Judged by Industry Panel
                 </div>
               </div>
@@ -150,16 +206,30 @@ export const ParticipantInfo = () => {
         )}
 
         {/* Official Rulebook Download Card */}
-        <div className="rounded-2xl bg-neutral-900/90 border border-neutral-800 p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div
+          className="rounded-2xl border p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6"
+          style={{
+            backgroundColor: '#1A0614',
+            borderColor: 'rgba(214, 26, 112, 0.35)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.4)',
+          }}
+        >
           <div className="flex items-center gap-4 text-center sm:text-left">
-            <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 shrink-0">
+            <div
+              className="w-12 h-12 rounded-xl border flex items-center justify-center shrink-0"
+              style={{
+                backgroundColor: 'rgba(214, 26, 112, 0.15)',
+                borderColor: 'rgba(214, 26, 112, 0.35)',
+                color: '#F42E88',
+              }}
+            >
               <FileText className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-base sm:text-lg font-bold text-white font-heading">
+              <h4 className="text-base sm:text-lg font-bold font-display" style={{ color: '#FAEEF4' }}>
                 {participantInfoData.rulebook.title}
               </h4>
-              <p className="text-xs sm:text-sm text-neutral-400 max-w-xl">
+              <p className="text-xs sm:text-sm max-w-xl" style={{ color: '#C4A5B5' }}>
                 {participantInfoData.rulebook.description}
               </p>
             </div>
@@ -170,13 +240,13 @@ export const ParticipantInfo = () => {
               variant="secondary"
               size="md"
               onClick={handleRulebookAction}
-              icon={<Download className="w-4 h-4 text-sky-400" />}
+              icon={<Download className="w-4 h-4" style={{ color: '#F42E88' }} />}
             >
               Download Rulebook (PDF)
             </Button>
             
             {downloadNotice && (
-              <span className="text-xs font-mono text-amber-400 flex items-center gap-1 animate-in fade-in">
+              <span className="text-xs font-mono flex items-center gap-1 animate-in fade-in" style={{ color: '#F59E0B' }}>
                 <Info className="w-3.5 h-3.5" />
                 Latest edition guidelines active above; final PDF published closer to kickoff.
               </span>
@@ -187,3 +257,4 @@ export const ParticipantInfo = () => {
     </section>
   );
 };
+

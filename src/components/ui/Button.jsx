@@ -3,7 +3,7 @@ import React from 'react';
 export const Button = ({
   children,
   variant = 'primary', // 'primary' | 'secondary' | 'outline' | 'ghost' | 'accent'
-  size = 'md', // 'sm' | 'md' | 'lg'
+  size = 'md',         // 'sm' | 'md' | 'lg'
   href,
   onClick,
   target,
@@ -14,20 +14,35 @@ export const Button = ({
   iconPosition = 'right',
   ...props
 }) => {
-  const baseStyles = "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 disabled:opacity-50 disabled:cursor-not-allowed select-none cursor-pointer";
-  
+  const baseStyles =
+    "inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F42E88] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070206] disabled:opacity-40 disabled:cursor-not-allowed select-none cursor-pointer";
+
   const sizeStyles = {
-    sm: "text-xs px-3 py-1.5 rounded-md gap-1.5",
-    md: "text-sm px-4 py-2.5 rounded-lg gap-2 font-semibold",
-    lg: "text-base px-6 py-3.5 rounded-xl gap-2.5 font-bold tracking-tight",
+    sm: "text-xs px-3.5 py-1.5 rounded-md gap-1.5 font-semibold",
+    md: "text-sm px-5 py-2.5 rounded-lg gap-2 font-semibold",
+    lg: "text-base px-7 py-3.5 rounded-xl gap-2.5 font-bold tracking-wide",
   };
 
   const variantStyles = {
-    primary: "bg-white text-neutral-950 hover:bg-neutral-200 active:bg-neutral-300 shadow-sm shadow-white/5",
-    secondary: "bg-neutral-900 text-neutral-100 border border-neutral-800 hover:bg-neutral-800 hover:border-neutral-700 active:bg-neutral-950",
-    accent: "bg-sky-500 text-neutral-950 hover:bg-sky-400 active:bg-sky-600 font-semibold shadow-sm shadow-sky-500/10",
-    outline: "bg-transparent text-neutral-300 border border-neutral-800 hover:border-neutral-600 hover:text-white active:bg-neutral-900",
-    ghost: "bg-transparent text-neutral-400 hover:text-white hover:bg-neutral-900 active:bg-neutral-800",
+    // Solid vivid magenta — primary actions (Register, Submit)
+    primary:
+      "bg-[#D61A70] text-white hover:bg-[#F42E88] active:bg-[#A91455] shadow-lg shadow-[rgba(214,26,112,0.28)] hover:shadow-[rgba(214,26,112,0.42)] hover:-translate-y-[1px]",
+
+    // Dark burgundy surface — secondary & nav CTAs
+    secondary:
+      "bg-[#1A0614] text-[#FAEEF4] border border-[rgba(93,27,64,0.60)] hover:bg-[#260A1C] hover:border-[rgba(214,26,112,0.40)] active:bg-[#12040E]",
+
+    // Transparent outlined — tertiary actions
+    outline:
+      "bg-transparent text-[#C4A5B5] border border-[rgba(93,27,64,0.55)] hover:border-[#D61A70] hover:text-[#FAEEF4] active:bg-[#1A0614]",
+
+    // Fully ghost — lowest hierarchy
+    ghost:
+      "bg-transparent text-[#C4A5B5] hover:text-[#FAEEF4] hover:bg-[#1A0614] active:bg-[#12040E]",
+
+    // Accent filled — ETHIndia bounty, special highlights
+    accent:
+      "bg-[#961042] text-white hover:bg-[#A91455] active:bg-[#7A0D35] shadow-sm shadow-[rgba(150,16,66,0.30)]",
   };
 
   const combinedClass = `${baseStyles} ${sizeStyles[size] || sizeStyles.md} ${variantStyles[variant] || variantStyles.primary} ${className}`;

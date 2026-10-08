@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "./tokens.css";
+
 
 @layer base {
   * {
     border-color: var(--color-border-subtle);
+    box-sizing: border-box;
   }
 
   html {
@@ -13,80 +16,158 @@
   }
 
   body {
-    background-color: var(--color-bg-base);
+    background-color: var(--color-bg-primary);
     color: var(--color-text-primary);
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
 
   code, kbd, samp, pre {
     font-family: var(--font-mono);
   }
+
+  /* Focus visible ring — high-contrast magenta */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 }
 
-/* Custom Component & Utility Tokens */
-.font-heading {
-  font-family: var(--font-heading);
-}
+/* ── Font Utilities ─────────────────────────────────────────── */
+.font-display  { font-family: var(--font-display); }
+.font-heading  { font-family: var(--font-display); }
+.font-mono     { font-family: var(--font-mono); }
+.font-sans     { font-family: var(--font-sans); }
 
-.font-mono {
-  font-family: var(--font-mono);
-}
-
-.font-sans {
-  font-family: var(--font-sans);
-}
-
-/* Technical Hairline Grid Pattern & Card Borders */
-.tech-border {
+/* ── HFT Card System ────────────────────────────────────────── */
+.hft-card {
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.tech-border-highlight {
-  border: 1px solid var(--color-border-medium);
-}
-
-.tech-card {
-  background-color: var(--color-bg-surface);
-  border: 1px solid var(--color-border-subtle);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.tech-card:hover {
-  background-color: var(--color-bg-surface-hover);
+.hft-card:hover {
   border-color: var(--color-border-medium);
+  box-shadow: var(--shadow-glow-sm);
 }
 
-.tech-grid-pattern {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+.hft-card-elevated {
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-lg);
 }
 
-.tech-dot-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
+/* ── HFT Section Divider ────────────────────────────────────── */
+.hft-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--color-border-medium) 30%,
+    var(--color-border-strong) 50%,
+    var(--color-border-medium) 70%,
+    transparent 100%
+  );
 }
 
-/* Scrollbar Styling */
+/* ── HFT Badge ──────────────────────────────────────────────── */
+.hft-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--color-accent-muted);
+  border: 1px solid var(--color-border-accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-accent-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Magenta Accent Line (section heading accent) ───────────── */
+.hft-accent-line {
+  display: inline-block;
+  width: 32px;
+  height: 3px;
+  background: var(--color-accent-primary);
+  border-radius: 2px;
+}
+
+/* ── Atmospheric Background Patterns ────────────────────────── */
+
+/* Restrained dot matrix — evokes technical precision */
+.hft-dot-pattern {
+  background-image: radial-gradient(
+    rgba(214, 26, 112, 0.07) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+
+/* Subtle grid lines for content sections */
+.hft-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(93, 27, 64, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(93, 27, 64, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Cinematic radial glow — hero focal point */
+.hft-radial-glow {
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 40%,
+    rgba(150, 16, 66, 0.22) 0%,
+    rgba(60, 7, 30, 0.12) 50%,
+    transparent 100%
+  );
+}
+
+/* Edge crimson vignette */
+.hft-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 60%,
+    rgba(7, 2, 6, 0.6) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #08090d;
+  background: var(--color-bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--color-surface-elevated);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: var(--color-accent-crimson);
+}
+
+/* ── Reduced Motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

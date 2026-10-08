@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, Terminal } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { eventConfig, EVENT_STATUS_ENUM } from '../../data/eventConfig';
 import { navigationData } from '../../data/navigation';
 import { Button } from '../ui/Button';
@@ -8,86 +8,74 @@ import { Container } from './Container';
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavLinkClick = () => {
-    setIsMobileMenuOpen(false);
-  };
+  const handleNavLinkClick = () => setIsMobileMenuOpen(false);
 
   const getCtaText = () => {
     switch (eventConfig.currentStatus) {
-      case EVENT_STATUS_ENUM.REGISTRATIONS_OPEN:
-        return 'Register on Devfolio';
-      case EVENT_STATUS_ENUM.REGISTRATIONS_CLOSED:
-        return 'Applications Closed';
-      case EVENT_STATUS_ENUM.SHORTLISTING:
-        return 'Shortlist Results';
-      case EVENT_STATUS_ENUM.LIVE:
-        return 'Hackathon Live';
-      case EVENT_STATUS_ENUM.COMPLETED:
-        return 'View Projects';
-      default:
-        return 'Coming Soon';
+      case EVENT_STATUS_ENUM.REGISTRATIONS_OPEN:   return 'Register Now';
+      case EVENT_STATUS_ENUM.REGISTRATIONS_CLOSED: return 'Applications Closed';
+      case EVENT_STATUS_ENUM.SHORTLISTING:         return 'Shortlist Results';
+      case EVENT_STATUS_ENUM.LIVE:                 return 'Hackathon Live';
+      case EVENT_STATUS_ENUM.COMPLETED:            return 'View Projects';
+      default:                                     return 'Coming Soon';
     }
   };
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#08090d]/90 backdrop-blur-md border-b border-neutral-800/80 py-3 shadow-lg shadow-black/40'
+            ? 'bg-[#070206]/92 backdrop-blur-xl border-b border-[rgba(93,27,64,0.50)] py-3 shadow-[0_4px_24px_rgba(7,2,6,0.70)]'
             : 'bg-transparent py-5 border-b border-transparent'
         }`}
       >
         <Container>
           <div className="flex items-center justify-between">
-            {/* Brand Logo & Lockup */}
+
+            {/* Brand Lockup */}
             <a
               href="#home"
-              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-lg"
+              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F42E88] rounded-lg"
               aria-label="Hack For Tomorrow Home"
             >
-              <div className="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-700 flex items-center justify-center text-white group-hover:border-sky-400/60 transition-colors">
-                <Terminal className="w-5 h-5 text-sky-400" />
+              {/* HFT monogram pill */}
+              <div className="w-9 h-9 rounded-lg bg-[#1A0614] border border-[rgba(214,26,112,0.35)] flex items-center justify-center group-hover:border-[#D61A70] group-hover:shadow-[0_0_12px_rgba(214,26,112,0.25)] transition-all duration-200">
+                <span className="font-display font-extrabold text-[13px] text-[#D61A70] leading-none tracking-tight">HFT</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-heading font-extrabold text-lg text-white tracking-tight leading-none group-hover:text-sky-300 transition-colors">
+                <span className="font-display font-extrabold text-[15px] text-[#FAEEF4] tracking-tight leading-none group-hover:text-[#F42E88] transition-colors duration-200">
                   HACK FOR TOMORROW
                 </span>
-                <span className="text-[10px] font-mono text-neutral-400 tracking-wider uppercase leading-tight mt-0.5">
-                  {eventConfig.festivalName} • MEC
+                <span className="text-[10px] font-mono text-[#7A5068] tracking-widest uppercase leading-tight mt-0.5">
+                  {eventConfig.festivalName} · MEC
                 </span>
               </div>
             </a>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden xl:flex items-center gap-1" aria-label="Main Navigation">
+            {/* Desktop Navigation */}
+            <nav className="hidden xl:flex items-center gap-0.5" aria-label="Main Navigation">
               {navigationData.navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="px-3 py-1.5 rounded-md text-xs font-medium text-neutral-300 hover:text-white hover:bg-neutral-800/60 transition-colors"
+                  className="px-3.5 py-2 rounded-md text-[13px] font-medium text-[#C4A5B5] hover:text-[#FAEEF4] hover:bg-[#1A0614] transition-all duration-150 relative group"
                 >
                   {link.label}
+                  {/* Magenta underline on hover */}
+                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-[#D61A70] rounded-full group-hover:w-4 transition-all duration-200" />
                 </a>
               ))}
             </nav>
 
-            {/* Desktop Action CTA */}
+            {/* Desktop CTA */}
             <div className="hidden sm:flex items-center gap-3">
               <Button
                 href={eventConfig.links.registrationUrl}
@@ -100,41 +88,46 @@ export const Navbar = () => {
               </Button>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Toggle */}
             <div className="flex items-center gap-2 xl:hidden">
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800/80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                className="p-2 rounded-lg text-[#C4A5B5] hover:text-[#FAEEF4] hover:bg-[#1A0614] border border-transparent hover:border-[rgba(93,27,64,0.50)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F42E88]"
                 aria-label={isMobileMenuOpen ? 'Close Menu' : 'Open Menu'}
                 aria-expanded={isMobileMenuOpen}
               >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
+
           </div>
         </Container>
       </header>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-30 xl:hidden pt-20 bg-[#08090d]/95 backdrop-blur-lg animate-in fade-in duration-150">
-          <Container className="h-full flex flex-col justify-between pb-8">
-            <nav className="flex flex-col space-y-1 mt-4" aria-label="Mobile Navigation">
+        <div
+          className="fixed inset-0 z-30 xl:hidden pt-[72px] bg-[#070206]/97 backdrop-blur-xl"
+          style={{ animation: 'fadeIn 0.15s ease' }}
+        >
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#D61A70] to-transparent opacity-40" />
+          <Container className="h-full flex flex-col justify-between pb-10">
+            <nav className="flex flex-col space-y-1 mt-6" aria-label="Mobile Navigation">
               {navigationData.navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={handleNavLinkClick}
-                  className="px-4 py-3 rounded-xl text-base font-semibold text-neutral-200 hover:text-white hover:bg-neutral-800/70 transition-colors flex items-center justify-between border-b border-neutral-900"
+                  className="px-4 py-3.5 rounded-xl text-base font-semibold text-[#C4A5B5] hover:text-[#FAEEF4] hover:bg-[#1A0614] border border-transparent hover:border-[rgba(93,27,64,0.45)] transition-all flex items-center justify-between"
                 >
                   <span>{link.label}</span>
-                  <span className="text-xs text-neutral-500 font-mono">→</span>
+                  <span className="text-[#7A5068] text-sm">→</span>
                 </a>
               ))}
             </nav>
 
-            <div className="mt-8 space-y-3 pt-4 border-t border-neutral-800">
+            <div className="space-y-4 pt-6 border-t border-[rgba(93,27,64,0.45)]">
               <Button
                 href={eventConfig.links.registrationUrl}
                 target="_blank"
@@ -146,15 +139,17 @@ export const Navbar = () => {
               >
                 {getCtaText()}
               </Button>
-              <div className="text-center">
-                <p className="text-xs text-neutral-500 font-mono">
-                  {eventConfig.institution}
-                </p>
-              </div>
+              <p className="text-center text-xs font-mono text-[#7A5068]">
+                {eventConfig.institution}
+              </p>
             </div>
           </Container>
         </div>
       )}
+
+      <style>{`
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      `}</style>
     </>
   );
 };

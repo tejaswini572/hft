@@ -6,17 +6,18 @@ import { SectionHeader } from '../layout/SectionHeader';
 
 export const About = () => {
   const getTrackIcon = (iconName) => {
+    const iconStyle = { color: '#D61A70' };
     switch (iconName) {
-      case 'Sparkles': return <Sparkles className="w-5 h-5 text-sky-400" />;
-      case 'Wallet': return <Wallet className="w-5 h-5 text-indigo-400" />;
-      case 'Code': return <Code className="w-5 h-5 text-emerald-400" />;
-      case 'Rocket': return <Rocket className="w-5 h-5 text-amber-400" />;
-      default: return <Sparkles className="w-5 h-5 text-sky-400" />;
+      case 'Sparkles': return <Sparkles className="w-5 h-5" style={iconStyle} />;
+      case 'Wallet':   return <Wallet   className="w-5 h-5" style={iconStyle} />;
+      case 'Code':     return <Code     className="w-5 h-5" style={iconStyle} />;
+      case 'Rocket':   return <Rocket   className="w-5 h-5" style={iconStyle} />;
+      default:         return <Sparkles className="w-5 h-5" style={iconStyle} />;
     }
   };
 
   return (
-    <section id="about" className="py-20 md:py-32 bg-[#08090d] relative overflow-hidden">
+    <section id="about" className="py-20 md:py-32 relative overflow-hidden" style={{ background: '#070206' }}>
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
@@ -28,9 +29,9 @@ export const About = () => {
               subtitle="The flagship 24-hour collegiate hackathon of Excel, bringing together top student developers from across India to solve high-impact, real-world engineering challenges."
             />
 
-            <div className="space-y-4 text-neutral-300 text-base sm:text-lg leading-relaxed font-normal">
+            <div className="space-y-4 text-base sm:text-lg leading-relaxed font-normal" style={{ color: '#C4A5B5' }}>
               <p>
-                Organized under the aegis of <strong className="text-white font-semibold">Govt. Model Engineering College (MEC), Kochi</strong> and its annual techno-managerial fest <strong className="text-white font-semibold">Excel</strong>, Hack For Tomorrow provides an inclusive and collaborative platform for developers of all skill levels.
+                Organized under the aegis of <strong style={{ color: '#FAEEF4', fontWeight: 600 }}>Govt. Model Engineering College (MEC), Kochi</strong> and its annual techno-managerial fest <strong style={{ color: '#FAEEF4', fontWeight: 600 }}>Excel</strong>, Hack For Tomorrow provides an inclusive and collaborative platform for developers of all skill levels.
               </p>
               
               <p>
@@ -46,8 +47,8 @@ export const About = () => {
                 "Cross-college team collaborations",
                 "Direct exposure to recruiter networks"
               ].map((item) => (
-                <div key={item} className="flex items-center gap-2.5 text-sm text-neutral-200">
-                  <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0" />
+                <div key={item} className="flex items-center gap-2.5 text-sm" style={{ color: '#C4A5B5' }}>
+                  <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: '#D61A70' }} />
                   <span>{item}</span>
                 </div>
               ))}
@@ -56,15 +57,21 @@ export const About = () => {
 
           {/* Right Column: Problem Tracks Hub (5 cols) */}
           <div className="lg:col-span-5">
-            <div className="rounded-2xl bg-neutral-900/80 border border-neutral-800 p-6 sm:p-8 space-y-6">
+            <div
+              className="rounded-2xl p-6 sm:p-8 space-y-6"
+              style={{
+                background: 'linear-gradient(135deg, #1A0614, #12040E)',
+                border: '1px solid rgba(93,27,64,0.50)',
+              }}
+            >
               <div>
-                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-sky-400">
+                <span className="text-xs font-mono font-semibold uppercase tracking-widest" style={{ color: '#D61A70' }}>
                   Hacking Tracks
                 </span>
-                <h3 className="text-xl font-bold text-white font-heading mt-1">
+                <h3 className="text-xl font-bold mt-1" style={{ fontFamily: 'var(--font-display)', color: '#FAEEF4' }}>
                   Focus Themes for {eventConfig.editionYear}
                 </h3>
-                <p className="text-xs text-neutral-400 mt-1">
+                <p className="text-xs mt-1" style={{ color: '#7A5068' }}>
                   Build prototypes across specialized technology domains or propose open solutions.
                 </p>
               </div>
@@ -73,17 +80,35 @@ export const About = () => {
                 {eventConfig.tracks.map((track) => (
                   <div
                     key={track.id}
-                    className="p-4 rounded-xl bg-neutral-950/70 border border-neutral-800/80 hover:border-neutral-700 transition-colors group"
+                    className="p-4 rounded-xl transition-all duration-150 group"
+                    style={{
+                      background: 'rgba(7,2,6,0.50)',
+                      border: '1px solid rgba(93,27,64,0.35)',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.borderColor = 'rgba(214,26,112,0.35)';
+                      e.currentTarget.style.background = 'rgba(26,6,20,0.70)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.borderColor = 'rgba(93,27,64,0.35)';
+                      e.currentTarget.style.background = 'rgba(7,2,6,0.50)';
+                    }}
                   >
                     <div className="flex items-start gap-3.5">
-                      <div className="p-2.5 rounded-lg bg-neutral-900 border border-neutral-800 shrink-0 group-hover:scale-105 transition-transform">
+                      <div
+                        className="p-2.5 rounded-lg shrink-0"
+                        style={{
+                          background: 'rgba(214,26,112,0.10)',
+                          border: '1px solid rgba(214,26,112,0.25)',
+                        }}
+                      >
                         {getTrackIcon(track.icon)}
                       </div>
                       <div className="space-y-1">
-                        <h4 className="text-sm font-bold text-white font-heading group-hover:text-sky-300 transition-colors">
+                        <h4 className="text-sm font-bold" style={{ fontFamily: 'var(--font-display)', color: '#FAEEF4' }}>
                           {track.name}
                         </h4>
-                        <p className="text-xs text-neutral-400 leading-relaxed">
+                        <p className="text-xs leading-relaxed" style={{ color: '#7A5068' }}>
                           {track.desc}
                         </p>
                       </div>
@@ -95,7 +120,10 @@ export const About = () => {
               <div className="pt-2 text-center">
                 <a
                   href="#prizes"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-sky-400 hover:text-sky-300 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold transition-colors"
+                  style={{ color: '#D61A70' }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#F42E88'}
+                  onMouseLeave={e => e.currentTarget.style.color = '#D61A70'}
                 >
                   <span>View Track Bounties & Prize Details</span>
                   <ArrowRight className="w-3.5 h-3.5" />

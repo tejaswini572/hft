@@ -9,23 +9,23 @@ export const Announcements = () => {
     return null;
   }
 
-  const getCategoryBadgeClass = (category) => {
+  const getCategoryBadgeStyle = (category) => {
     switch (category) {
       case 'Registration':
-        return 'bg-emerald-950/50 text-emerald-400 border-emerald-800/50';
+        return { backgroundColor: 'rgba(214, 26, 112, 0.15)', borderColor: 'rgba(214, 26, 112, 0.4)', color: '#F42E88' };
       case 'Important':
-        return 'bg-rose-950/50 text-rose-400 border-rose-800/50';
+        return { backgroundColor: 'rgba(150, 16, 66, 0.2)', borderColor: 'rgba(150, 16, 66, 0.5)', color: '#FAEEF4' };
       case 'Schedule':
-        return 'bg-amber-950/50 text-amber-400 border-amber-800/50';
+        return { backgroundColor: 'rgba(245, 158, 11, 0.15)', borderColor: 'rgba(245, 158, 11, 0.4)', color: '#FCD34D' };
       case 'Shortlisting':
-        return 'bg-sky-950/50 text-sky-400 border-sky-800/50';
+        return { backgroundColor: 'rgba(214, 26, 112, 0.2)', borderColor: 'rgba(214, 26, 112, 0.5)', color: '#FAEEF4' };
       default:
-        return 'bg-neutral-900 text-neutral-300 border-neutral-800';
+        return { backgroundColor: '#260A1C', borderColor: 'rgba(93, 27, 64, 0.4)', color: '#C4A5B5' };
     }
   };
 
   return (
-    <section id="announcements" className="py-20 md:py-28 bg-neutral-950/60 border-t border-neutral-800/80 relative overflow-hidden">
+    <section id="announcements" className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: '#070206' }}>
       <Container>
         <SectionHeader
           badge="Notice Board"
@@ -37,39 +37,54 @@ export const Announcements = () => {
           {announcementsData.map((ann) => (
             <div
               key={ann.id}
-              className={`p-6 rounded-2xl bg-neutral-900/80 border ${
-                ann.isPinned ? 'border-sky-500/40' : 'border-neutral-800'
-              } flex flex-col justify-between hover:border-neutral-700 transition-colors`}
+              className="p-6 rounded-2xl border flex flex-col justify-between transition-all duration-300"
+              style={{
+                backgroundColor: '#1A0614',
+                borderColor: ann.isPinned ? 'rgba(214, 26, 112, 0.6)' : 'rgba(93, 27, 64, 0.45)',
+                boxShadow: ann.isPinned ? '0 0 20px rgba(214, 26, 112, 0.2)' : '0 4px 20px rgba(0,0,0,0.3)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(214, 26, 112, 0.5)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = ann.isPinned ? 'rgba(214, 26, 112, 0.6)' : 'rgba(93, 27, 64, 0.45)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className={`text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${getCategoryBadgeClass(ann.category)}`}>
+                  <span
+                    className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full border"
+                    style={getCategoryBadgeStyle(ann.category)}
+                  >
                     {ann.category}
                   </span>
                   
-                  <div className="flex items-center gap-1.5 text-xs font-mono text-neutral-400">
-                    <Calendar className="w-3 h-3 text-neutral-400" />
+                  <div className="flex items-center gap-1.5 text-xs font-mono" style={{ color: '#C4A5B5' }}>
+                    <Calendar className="w-3 h-3" style={{ color: '#C4A5B5' }} />
                     <span>{ann.date}</span>
-                    {ann.isPinned && <Pin className="w-3 h-3 text-sky-400 rotate-45 ml-1" />}
+                    {ann.isPinned && <Pin className="w-3 h-3 rotate-45 ml-1" style={{ color: '#F42E88' }} />}
                   </div>
                 </div>
 
-                <h3 className="text-base font-bold text-white font-heading mb-2">
+                <h3 className="text-base font-bold font-display mb-2" style={{ color: '#FAEEF4' }}>
                   {ann.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
+                <p className="text-xs sm:text-sm leading-relaxed font-normal" style={{ color: '#C4A5B5' }}>
                   {ann.content}
                 </p>
               </div>
 
               {ann.linkText && ann.linkUrl && (
-                <div className="pt-4 mt-6 border-t border-neutral-800/60">
+                <div className="pt-4 mt-6 border-t" style={{ borderColor: 'rgba(93, 27, 64, 0.4)' }}>
                   <a
                     href={ann.linkUrl}
                     target={ann.linkUrl.startsWith('http') ? '_blank' : '_self'}
                     rel={ann.linkUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-sky-400 hover:text-sky-300 transition-colors group"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-bold transition-colors group"
+                    style={{ color: '#F42E88' }}
                   >
                     <span>{ann.linkText}</span>
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -83,3 +98,4 @@ export const Announcements = () => {
     </section>
   );
 };
+
